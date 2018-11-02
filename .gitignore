@@ -30,3 +30,6 @@ venv/
 # File-based project format
 *.iws
 
+# just for safety so nobody accidentally checks something in
+*.biprivatekey
+*.bikey
