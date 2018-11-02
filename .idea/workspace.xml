@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f267c401-20d3-417b-9c97-1bdc483a7625" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sign.py" beforeDir="false" afterPath="$PROJECT_DIR$/sign.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/SignFiles$sign.coverage" NAME="sign Coverage Results" MODIFIED="1541160864079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SignFiles$sign.coverage" NAME="sign Coverage Results" MODIFIED="1541168653707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="242597510">
@@ -23,54 +26,64 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="gitignore" value="1" />
-          <entry key="md" value="4" />
+          <entry key="gitignore" value="3" />
+          <entry key="md" value="5" />
           <entry key="py" value="2" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Markdown" value="4" />
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Markdown" value="5" />
+          <entry key="PLAIN_TEXT" value="4" />
           <entry key="Python" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="53" />
-          <entry key="md" value="812" />
-          <entry key="py" value="2648" />
+          <entry key="gitignore" value="1" />
+          <entry key="md" value="976" />
+          <entry key="py" value="2971" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Markdown" value="812" />
-          <entry key="PLAIN_TEXT" value="6" />
-          <entry key="Python" value="2701" />
+          <entry key="Markdown" value="976" />
+          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="Python" value="3024" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sign.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+            <state relative-caret-position="410">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#18#33#0" expanded="true" />
-                <marker date="1541166809184" expanded="true" signature="2552:2804" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="2842:2847" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="2926:3429" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="3040:3187" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="3503:4486" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="3633:3761" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="3982:4061" ph="..." />
-                <marker date="1541166809184" expanded="true" signature="4135:4486" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="3030:3282" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="3320:3325" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="3404:3907" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="3518:3665" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="3981:5105" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="4081:4179" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="4357:4680" ph="..." />
+                <marker date="1541168653687" expanded="true" signature="4754:5105" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -88,6 +101,9 @@
     <findStrings>
       <find>ace_advanced_ballistics.pbo.RL_RPG_20181102112527.bisign</find>
       <find>default</find>
+      <find>biprivatekey</find>
+      <find>mod_addon_path</find>
+      <find>&quot;/&quot;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -96,11 +112,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/LICENSE.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/sign.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -177,7 +193,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sign.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="-t -e -c -d -p C:\Users\vabene1111\Downloads C:\Users\vabene1111\Desktop\@Mod" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -269,21 +285,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="255">
-            <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <first_editor relative-caret-position="544">
+            <caret line="35" column="70" lean-forward="true" selection-start-line="35" selection-start-column="70" selection-end-line="35" selection-end-column="70" />
           </first_editor>
           <second_editor />
         </state>
@@ -291,19 +300,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sign.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+        <state relative-caret-position="410">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#18#33#0" expanded="true" />
-            <marker date="1541166809184" expanded="true" signature="2552:2804" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="2842:2847" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="2926:3429" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="3040:3187" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="3503:4486" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="3633:3761" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="3982:4061" ph="..." />
-            <marker date="1541166809184" expanded="true" signature="4135:4486" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="3030:3282" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="3320:3325" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="3404:3907" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="3518:3665" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="3981:5105" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="4081:4179" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="4357:4680" ph="..." />
+            <marker date="1541168653687" expanded="true" signature="4754:5105" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
         </state>
       </provider>
     </entry>

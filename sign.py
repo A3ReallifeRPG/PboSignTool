@@ -16,26 +16,30 @@ import colorama as cr
 def main():
     cr.init()
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--path", help="path to mod root directory (not addons)")
-    parser.add_argument("-k", "--keypath", help="path to directory for storing generated public key (default <base path>/keys/)")
+    parser.add_argument("path", help="path to mod root directory (not addons)")
+    parser.add_argument("-k", "--public-key-path", help="path to directory for storing generated public key (default <base path>/keys)")
+    parser.add_argument("-p", "--private-key-path", help="path to directory for storing generated private key")
     parser.add_argument("-a", "--authority", help="basically the name of the key")
     parser.add_argument("-t", "--timestamp", help="adds a timestamp to the authority name", action="store_true")
     parser.add_argument("-c", "--clean", help="if old bisign and key files should be deleted", action="store_true")
     parser.add_argument("-o", "--old", help="do not create new key because old one exists (if there is no old one things will break)", action="store_true")
     parser.add_argument("-u", "--unsafe", help="do not check if created signatures are valid", action="store_true")
-    parser.add_argument("-d", "--delete", help="delete keys when finished", action="store_true")
+    parser.add_argument("-d", "--delete", help="delete bikey and private key when finished", action="store_true")
     parser.add_argument("-e", "--export", help="export public key to defined directory", action="store_true")
     args = parser.parse_args()
 
-    mod_path = "C:/Users/vabene1111/Desktop/@Mod"
-    if args.path:
-        mod_path = str(args.path).replace("\\", "/")
+    mod_path = str(args.path).replace("\\", "/")
 
-    mod_addon_path = mod_path + "/addons/"
+    if not mod_path.endswith("/"):
+        mod_path += "/"
+
+    mod_addon_path = mod_path + "addons/"
 
     mod_public_key_path = mod_path + "/keys/"
-    if args.keypath:
+    if args.public_key_path:
         mod_public_key_path = str(args.keypath).replace("\\", "/")
+        if not mod_public_key_path.endswith("/"):
+            mod_public_key_path += "/"
 
     key_authority = "RL_RPG"
     if args.authority:
@@ -62,6 +66,12 @@ def main():
 
     if args.export:
         safe_public_key(key_name, mod_public_key_path)
+
+    if args.private_key_path:
+        mod_private_key_path = str(args.private_key_path).replace("\\", "/");
+        if not mod_private_key_path.endswith("/"):
+            mod_private_key_path += "/"
+        safe_private_key(key_name, mod_private_key_path)
 
     if args.delete:
         delete_key(key_name)
@@ -108,20 +118,29 @@ def create_key(key_name):
     call(["DSCreateKey.exe", key_name])
 
 
-def clean_public_keys(mod_public_key_path):
-    if os.path.exists(mod_public_key_path):
-        files = os.listdir(mod_public_key_path)
+def clean_public_keys(path):
+    if os.path.exists(path):
+        files = os.listdir(path)
         for file in files:
-            os.remove(mod_public_key_path + file)
+            os.remove(path + file)
 
 
-def safe_public_key(key_name, mod_public_key_path):
-    print("Storing public key")
-    if not os.path.exists(mod_public_key_path):
+def safe_public_key(key_name, path):
+    print("Exporting public key")
+    if not os.path.exists(path):
         print("Creating public key directory")
-        os.makedirs(mod_public_key_path)
+        os.makedirs(path)
 
-    copyfile(key_name + ".bikey", mod_public_key_path + key_name + ".bikey")
+    copyfile(key_name + ".bikey", path + key_name + ".bikey")
+
+
+def safe_private_key(key_name, path):
+    print("Exporting private key")
+    if not os.path.exists(path):
+        print("Creating private key directory")
+        os.makedirs(path)
+
+    copyfile(key_name + ".biprivatekey", path + key_name + ".biprivatekey")
 
 
 def delete_key(key_name):
