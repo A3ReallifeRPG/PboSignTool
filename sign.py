@@ -1,37 +1,70 @@
 #!/usr/bin/python
+import argparse
 import datetime
 import multiprocessing
-import os, re
+import os
+import re
 import sys
 import time
-from shutil import copyfile
 from functools import partial
+from shutil import copyfile
 from subprocess import call
+
 import colorama as cr
 
 
 def main():
     cr.init()
-    mod_path = "C:/Users/vabene1111/Desktop/@Mod"
-    mod_addon_path = mod_path + "/addons/"
-    mod_public_key_path = mod_path + "/keys/"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--path", help="path to mod root directory (not addons)")
+    parser.add_argument("-k", "--keys", help="path to directory for storing generated public key (default <base path>/keys/)")
+    parser.add_argument("-a", "--authority", help="basically the name of the key")
+    parser.add_argument("-t", "--timestamp", help="adds a timestamp to the authority name", action="store_true")
+    parser.add_argument("-c", "--clean", help="if old bisign and key files should be deleted", action="store_true")
+    parser.add_argument("-o", "--old", help="do not create new key because old one exists (if there is no old one things will break)", action="store_true")
+    parser.add_argument("-u", "--unsafe", help="do not check if created signatures are valid", action="store_true")
+    parser.add_argument("-d", "--delete", help="delete keys when finished", action="store_true")
+    parser.add_argument("-e", "--export", help="Export public key to defined directory", action="store_true")
+    args = parser.parse_args()
 
-    key_name = "RL_RPG_" + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    mod_path = "C:/Users/vabene1111/Desktop/@Mod"
+    if args.path:
+        mod_path = str(args.path).replace("\\", "/")
+
+    mod_addon_path = mod_path + "/addons/"
+
+    mod_public_key_path = mod_path + "/keys/"
+    if args.keys:
+        mod_public_key_path = str(args.keys).replace("\\", "/")
+
+    key_authority = "RL_RPG_"
+    if args.authority:
+        key_authority = args.a
+
+    key_name = key_authority
+    if args.timestamp:
+        key_name = key_authority + "_" + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
     print(cr.Fore.GREEN + "== RealLifeRPG Sign Tool ==")
     print("PBO Path: " + mod_addon_path + cr.Style.RESET_ALL)
 
-    delete_bisign(mod_addon_path)
-    clean_public_keys(mod_public_key_path)
+    if args.clean:
+        delete_bisign(mod_addon_path)
+        clean_public_keys(mod_public_key_path)
 
-    create_key(key_name)
+    if not args.old:
+        create_key(key_name)
+
     sign_files(mod_addon_path, key_name)
 
-    check_signatures(mod_addon_path)
+    if not args.unsafe:
+        check_signatures(mod_addon_path)
 
-    safe_public_key(key_name, mod_public_key_path)
+    if args.export:
+        safe_public_key(key_name, mod_public_key_path)
 
-    delete_key(key_name)
+    if args.delete:
+        delete_key(key_name)
 
 
 def sign_files(path, key_name):
