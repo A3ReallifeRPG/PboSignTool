@@ -3,7 +3,7 @@
 # PBO SignTool
 Simple PBO sign tool using python multiprocessing. 
 
-##Features
+## Features
 - Uses all available CPU power to make signing fast
 - Can creates new unique keypair each time you sign
 - can move public/private key to configured dir (for easier deployment)
