@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import argparse
 import datetime
+import fnmatch
 import multiprocessing
 import os
 import re
@@ -78,7 +79,7 @@ def main():
 
 
 def sign_files(path, key_name):
-    files = os.listdir(path)
+    files = fnmatch.filter(os.listdir(path), '*.pbo')
     print(cr.Fore.GREEN + "Starting to sign " + str(len(files)) + " files" + cr.Style.RESET_ALL)
     start = time.time()
     func = partial(sign_file, path, key_name)
@@ -92,8 +93,7 @@ def sign_files(path, key_name):
 
 
 def sign_file(path, key_name, file):
-    pattern = re.compile("^([a-zA-Z0-9\s_.\-:])+\.pbo")
-    if pattern.match(file):
+    if file.endswith(".pbo"):
         call(["DSSignFile.exe", key_name + ".biprivatekey", path + file])
 
 
@@ -106,10 +106,9 @@ def check_signatures(mod_addon_path):
 
 def delete_bisign(path):
     print("Deleting old .bisign's")
-    pattern = re.compile("^([a-zA-Z0-9\s_.\-:])+\.bisign$")
     files = os.listdir(path)
     for file in files:
-        if pattern.match(file):
+        if file.endswith(".bisign"):
             os.remove(path + file)
 
 
