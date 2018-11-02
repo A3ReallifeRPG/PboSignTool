@@ -21,6 +21,8 @@ pip install colorama
 Simply drop the `DSSignFiles.exe`,`DSCreateKey.exe` and `DSCheckSignatures.exe` in a directory of your choice 
 together with the `sign.py` script.
 
+> *DISCLAIMER* This Script does not handle bad input well, unexpected things can happen!
+
 The simplest option is to run `ptyhon sign.py /path/to/your/@Mod`. 
 For more advanced usage and documentation run `python sign.py --help`.
 
@@ -49,3 +51,9 @@ optional arguments:
   -d, --delete          delete bikey and private key when finished
   -e, --export          export public key to defined directory
 ```
+
+If this is not enough for you simply scrap all the command line stuff from the python script and 
+rewrite it to fit your needs.
+
+## Contribute
+Fixed anything broken or added a new Feature ? Pull Requests and Issues are always welcome!
