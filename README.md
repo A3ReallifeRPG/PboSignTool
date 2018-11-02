@@ -1,3 +1,5 @@
+![Banner](https://raw.githubusercontent.com/A3ReallifeRPG/RealLifeRPGLauncher/master/resources/img/banner.png)
+
 # PBO SignTool
 Simple PBO sign tool using python multiprocessing. 
 
@@ -7,5 +9,13 @@ Simple PBO sign tool using python multiprocessing.
 - Moves public key to configured dir (for easier deployment)
 
 ## Usage
+Since colors are nice (and show errors better) and manually doing colors in python is annoying you have to
+install `colorama` either in a virtual env or globally.
+
+```
+pip install colorama
+```
+
+
 Simply drop the `DSSignFiles.exe`,`DSCreateKey.exe` and `DSCheckSignatures.exe` in a directory of your choice 
 together with the `sign.py` script. Configure the Script to your needs and run it.
