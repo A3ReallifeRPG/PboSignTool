@@ -17,14 +17,14 @@ def main():
     cr.init()
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", help="path to mod root directory (not addons)")
-    parser.add_argument("-k", "--keys", help="path to directory for storing generated public key (default <base path>/keys/)")
+    parser.add_argument("-k", "--keypath", help="path to directory for storing generated public key (default <base path>/keys/)")
     parser.add_argument("-a", "--authority", help="basically the name of the key")
     parser.add_argument("-t", "--timestamp", help="adds a timestamp to the authority name", action="store_true")
     parser.add_argument("-c", "--clean", help="if old bisign and key files should be deleted", action="store_true")
     parser.add_argument("-o", "--old", help="do not create new key because old one exists (if there is no old one things will break)", action="store_true")
     parser.add_argument("-u", "--unsafe", help="do not check if created signatures are valid", action="store_true")
     parser.add_argument("-d", "--delete", help="delete keys when finished", action="store_true")
-    parser.add_argument("-e", "--export", help="Export public key to defined directory", action="store_true")
+    parser.add_argument("-e", "--export", help="export public key to defined directory", action="store_true")
     args = parser.parse_args()
 
     mod_path = "C:/Users/vabene1111/Desktop/@Mod"
@@ -34,12 +34,12 @@ def main():
     mod_addon_path = mod_path + "/addons/"
 
     mod_public_key_path = mod_path + "/keys/"
-    if args.keys:
-        mod_public_key_path = str(args.keys).replace("\\", "/")
+    if args.keypath:
+        mod_public_key_path = str(args.keypath).replace("\\", "/")
 
-    key_authority = "RL_RPG_"
+    key_authority = "RL_RPG"
     if args.authority:
-        key_authority = args.a
+        key_authority = args.authority
 
     key_name = key_authority
     if args.timestamp:
