@@ -26,6 +26,7 @@ def main():
     parser.add_argument("-u", "--unsafe", help="do not check if created signatures are valid", action="store_true")
     parser.add_argument("-d", "--delete", help="delete bikey and private key when finished", action="store_true")
     parser.add_argument("-e", "--export", help="export public key to defined directory", action="store_true")
+    parser.add_argument("-v", "--verbose", help="verbose console output when signing", action="store_true")
     args = parser.parse_args()
 
     mod_path = str(args.path).replace("\\", "/")
@@ -59,7 +60,7 @@ def main():
     if not args.old:
         create_key(key_name)
 
-    sign_files(mod_addon_path, key_name)
+    sign_files(mod_addon_path, key_name, args.verbose)
 
     if not args.unsafe:
         check_signatures(mod_addon_path)
@@ -77,11 +78,11 @@ def main():
         delete_key(key_name)
 
 
-def sign_files(path, key_name):
+def sign_files(path, key_name, verbose):
     files = fnmatch.filter(os.listdir(path), '*.pbo')
     print(cr.Fore.GREEN + "Starting to sign " + str(len(files)) + " files" + cr.Style.RESET_ALL)
     start = time.time()
-    func = partial(sign_file, path, key_name)
+    func = partial(sign_file, path, key_name, verbose)
     with multiprocessing.Pool() as pool:
         pool.map(func, files)
         pool.close()
@@ -91,9 +92,16 @@ def sign_files(path, key_name):
     print("Signing completed in " + str(round(end - start, 4)) + "s")
 
 
-def sign_file(path, key_name, file):
+def sign_file(path, key_name, file, verbose):
     if file.endswith(".pbo"):
-        call(["DSSignFile.exe", key_name + ".biprivatekey", path + file])
+        if verbose:
+            print("signing " + file)
+        print(cr.Fore.RED)
+        result = call(["DSSignFile.exe", key_name + ".biprivatekey", path + file])
+        if not result == 0:
+            print("Error signing file " + file + " retrying")
+            sign_file(path, key_name, file)
+        print(cr.Style.RESET_ALL)
 
 
 def check_signatures(mod_addon_path):
