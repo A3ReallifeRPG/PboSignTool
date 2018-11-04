@@ -95,7 +95,7 @@ def sign_files(path, key_name, verbose):
 def sign_file(path, key_name, verbose, file):
     if file.endswith(".pbo"):
         if verbose:
-            print(cr.Style.RESET_ALL + "signing " + file + cr.Fore.YELLOW)
+            print("signing " + file)
 
         result = call(["DSSignFile.exe", key_name + ".biprivatekey", path + file])
         if not result == 0:
