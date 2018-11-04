@@ -80,7 +80,7 @@ def main():
 
 def sign_files(path, key_name, verbose):
     files = fnmatch.filter(os.listdir(path), '*.pbo')
-    print(cr.Fore.GREEN + "Starting to sign " + str(len(files)) + " files" + cr.Style.RESET_ALL)
+    print(cr.Fore.GREEN + "Starting to sign " + str(len(files)) + " files" + cr.Fore.RED)
     start = time.time()
     func = partial(sign_file, path, key_name, verbose)
     with multiprocessing.Pool() as pool:
@@ -89,19 +89,18 @@ def sign_files(path, key_name, verbose):
         pool.join()
 
     end = time.time()
-    print("Signing completed in " + str(round(end - start, 4)) + "s")
+    print(cr.Style.RESET_ALL + "Signing completed in " + str(round(end - start, 4)) + "s")
 
 
 def sign_file(path, key_name, verbose, file):
     if file.endswith(".pbo"):
         if verbose:
-            print("signing " + file)
-        print(cr.Fore.RED)
+            print(cr.Style.RESET_ALL + "signing " + file + cr.Fore.RED)
+
         result = call(["DSSignFile.exe", key_name + ".biprivatekey", path + file])
         if not result == 0:
             print("Error signing file " + file + " retrying")
             sign_file(path, key_name, verbose, file)
-        print(cr.Style.RESET_ALL)
 
 
 def check_signatures(mod_addon_path):
