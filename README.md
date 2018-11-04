@@ -28,7 +28,7 @@ For more advanced usage and documentation run `python sign.py --help`.
 
 ```
 usage: sign.py [-h] [-k PUBLIC_KEY_PATH] [-p PRIVATE_KEY_PATH] [-a AUTHORITY]
-               [-t] [-c] [-o] [-u] [-d] [-e]
+               [-t] [-c] [-o] [-u] [-d] [-e] [-v]
                path
 
 positional arguments:
@@ -50,6 +50,7 @@ optional arguments:
   -u, --unsafe          do not check if created signatures are valid
   -d, --delete          delete bikey and private key when finished
   -e, --export          export public key to defined directory
+  -v, --verbose         verbose console output when signing
 ```
 
 If this is not enough for you simply scrap all the command line stuff from the python script and 
