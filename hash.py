@@ -1,9 +1,12 @@
 import datetime
-import hashlib, os, fnmatch
+import hashlib
+import os
 import argparse
 import multiprocessing
 import time
 from functools import partial
+
+from pip._vendor import requests
 
 """
 Arma 3 Hashlist Script
@@ -39,8 +42,19 @@ def main():
 
 
 def upload_hash_list(hash_path, out_path, results, url, secret):
-    # TODO add upload code
-    print("upload not implemented")
+    headers = {
+        'User-Agent': 'Build Server',
+        'X-Requested-With': 'XMLHttpRequest',
+    }
+
+    payload = {
+        'vID': 9999,
+    }
+
+    with requests.Session() as session:
+        response = session.post(url, headers=headers, data=payload)
+
+    print(str(response))
 
 
 def save_hash_list(hash_path, out_path, results):
