@@ -17,6 +17,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("path", help="path to mod root directory")
     parser.add_argument("out", help="path to where hash list should be put")
+    parser.add_argument("-u", "--upload-url", help="url to post hash list to")
+    parser.add_argument("-s", "--upload-secret", help="secret for secured uploads")
 
     args = parser.parse_args()
 
@@ -28,7 +30,25 @@ def main():
     if not out_path.endswith("/"):
         out_path += "/"
 
-    hash_files(hash_path, out_path)
+    results = hash_files(hash_path, out_path)
+
+    save_hash_list(hash_path, out_path, results)
+
+    if args.upload_url:
+        upload_hash_list(hash_path, out_path, results, args.upload_url, args.upload_secret)
+
+
+def upload_hash_list(hash_path, out_path, results, url, secret):
+    # TODO add upload code
+    print("upload not implemented")
+
+
+def save_hash_list(hash_path, out_path, results):
+    out_name = hash_path[hash_path.find('@'):] + " - " + datetime.datetime.now().strftime('%d.%m.%Y %H-%M-%S') + ".json"
+
+    f = open(out_path + out_name, 'w')
+    f.write(results)
+    f.close()
 
 
 def hash_files(hash_path, out_path):
@@ -57,11 +77,7 @@ def hash_files(hash_path, out_path):
         results[i] = results[i].replace("__ID__", str(i))
         i += 1
 
-    out_name = hash_path[hash_path.find('@'):] + " - " + datetime.datetime.now().strftime('%d.%m.%Y %H-%M-%S') + ".json"
-
-    f = open(out_path + out_name, 'w')
-    f.write(str(results).replace("\'", ""))
-    f.close()
+    return str(results).replace("\'", "")
 
 
 def hash_file(file):
