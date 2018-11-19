@@ -12,6 +12,13 @@ from subprocess import call
 
 import colorama as cr
 
+"""
+Arma 3 PBO Signing Script
+by RealLifeRPG Team - www.realliferpg.de
+
+More Info: https://github.com/A3ReallifeRPG/PboSignTool
+"""
+
 
 def main():
     cr.init()
