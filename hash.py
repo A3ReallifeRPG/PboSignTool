@@ -78,7 +78,7 @@ def hash_files(hash_path, out_path):
 
 			files.append(dirpath + file)
 
-	print("Starting to sign " + str(len(files)) + " files")
+	print("Starting to hash " + str(len(files)) + " files")
 	start = time.time()
 
 	func = partial(hash_file)
@@ -88,7 +88,7 @@ def hash_files(hash_path, out_path):
 		pool.join()
 
 	end = time.time()
-	print("Signing completed in " + str(round(end - start, 4)) + "s")
+	print("Hashing completed in " + str(round(end - start, 4)) + "s")
 
 	i = 0
 	while i < len(results):
