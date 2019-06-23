@@ -22,19 +22,25 @@ def main():
     parser.add_argument("path", help="path to mod root directory")
     parser.add_argument("api", help="api base url to download from")
     parser.add_argument("mod_id", help="mod_id")
+    parser.add_argument("--secret", help="whitelist secret", type=str, default=1)
 
     args = parser.parse_args()
 
     mod_path = str(args.path).replace("\\", "/")
     api = str(args.api)
     mod_id = int(args.mod_id)
+    if(args.secret is not None):
+        secret = str(args.secret)
 
     headers = {
         'User-Agent': 'Build Server',
         'X-Requested-With': 'XMLHttpRequest'
     }
 
-    mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content.decode('utf-8'))["data"]
+    if(args.secret is None):
+        mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content.decode('utf-8'))["data"]
+    else:
+        mod_info = json.loads(requests.get(api + "/v1/mods/" + secret, headers=headers).content.decode('utf-8'))["data"]
 
     for mod in mod_info:
         if(mod["Id"] == mod_id):
