@@ -51,7 +51,7 @@ def hash_mod(mod_path, mod_info, hashlist):
     start = time.time()
 
     func = partial(hash_file, mod_path)
-    with multiprocessing.Pool() as pool:
+    with multiprocessing.Pool(6) as pool:
         results = pool.map(func, hashlist)
         pool.close()
         pool.join()
