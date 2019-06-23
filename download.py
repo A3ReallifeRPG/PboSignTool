@@ -5,9 +5,12 @@ import requests
 import json
 import os
 import urllib
+import hashlib
+
+from functools import partial
 
 """
-Arma 3 Download Script
+Arma 3 Mod Download Script
 by RealLifeRPG Team - www.realliferpg.de
 
 More Info: https://github.com/A3ReallifeRPG/PboSignTool
@@ -31,34 +34,70 @@ def main():
         'X-Requested-With': 'XMLHttpRequest'
     }
 
-    mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content)["data"][mod_id]
+    mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content.decode('utf-8'))["data"][mod_id]
 
     print("dwnloading/hashing mod: '" + str(mod_info["Name"]) + "' to path: '" + mod_path + "'")
 
     if os.path.isdir(os.path.join(mod_path, mod_info["Directories"])):
-        hash_mod(mod_path, api, mod_info, mod_id)
+        hashlist = get_hash_list(api, mod_info)["data"]
+        hash_mod(mod_path, mod_info, hashlist)
     else:
-        download_mod(mod_path, api, mod_info, mod_id)
+        hashlist = get_hash_list(api, mod_info)["data"]
+        download_mod(mod_path, mod_info, hashlist)
 
 
-def download_mod(mod_path, api, mod_info, mod_id):
-    hashlist = get_hash_list(api, mod_info)
+def hash_mod(mod_path, mod_info, hashlist):
+    print("Starting to hash/check " + str(len(hashlist)) + " files")
+    start = time.time()
 
-    download_mod_multithreaded(mod_path, mod_info, hashlist)
+    func = partial(hash_file, mod_path)
+    with multiprocessing.Pool() as pool:
+        results = pool.map(func, hashlist)
+        pool.close()
+        pool.join()
+
+    end = time.time()
+    results = list(filter(None.__ne__, results))
+    print("Hashing completed in " + str(round(end - start, 4)) + "s")
+    print(str(len(results)) + " files missing or wrong")
+
+    download_mod(mod_path, mod_info, results)
 
 
-def hash_mod(mod_path, api, mod_info, mod_id):
-    return ""
+def hash_file(mod_path, hashfile):
+    file = os.path.join(str(mod_path), str(hashfile["RelativPath"]).replace("\\", "/"))
+    if not (os.path.isfile(file)):
+        return hashfile
+    else:
+        file_hash = hashlib.md5(open(file, 'rb').read()).hexdigest()
+        if (file_hash.lower() != hashfile["Hash"]):
+            return hashfile
 
-def download_mod_multithreaded(mod_path, mod_info, list):
-    headers = {
-        'User-Agent': 'Build Server',
-        'X-Requested-With': 'XMLHttpRequest'
-    }
 
-    for file in list:
-        urllib.request.urlretrieve(str(mod_path["DownloadUrl"]) + "/" + str(file["RelativPath"]), os.path.join(mod_path, file["RelativPath"]))
-        print(str(mod_path["DownloadUrl"]) + "/" + str(file["RelativPath"]))
+def download_mod(mod_path, mod_info, hashlist):
+    print("Starting to download " + str(len(hashlist)) + " files")
+
+    start = time.time()
+    func = partial(download_file, mod_path, mod_info)
+    with multiprocessing.Pool(10) as pool:
+        pool.map(func, hashlist)
+        pool.close()
+        pool.join()
+
+    end = time.time()
+
+    print("Downloaded " + str(len(hashlist)) + " files in " + str(round(end - start, 4)) + "s")
+
+
+def download_file(mod_path, mod_info, file):
+    path = os.path.join(str(mod_path), str(file["RelativPath"]).replace("\\", "/"))
+    url = str(mod_info["DownloadUrl"]).replace("\\", "/") + "/" + str(file["RelativPath"]).replace("\\", "/")
+    if not os.path.isdir(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
+
+    urllib.request.urlretrieve(url, path)
+    print(url)
+
 
 def get_hash_list(api, mod_info):
     headers = {
@@ -66,7 +105,8 @@ def get_hash_list(api, mod_info):
         'X-Requested-With': 'XMLHttpRequest'
     }
 
-    return json.loads(requests.get(api + "/v1/mod/hashlist/" + str(mod_info["Id"]), headers=headers).content)
+    return json.loads(
+        requests.get(api + "/v1/mod/hashlist/" + str(mod_info["Id"]), headers=headers).content.decode('utf-8'))
 
 
 if __name__ == "__main__":
