@@ -86,7 +86,11 @@ def hash_file(mod_path, hashfile):
 
 
 def download_mod(mod_path, mod_info, hashlist):
-    print("Starting to download " + str(len(hashlist)) + " files")
+    size = 0
+    for file in hashlist:
+        size = size + file["Size"]
+
+    print("Starting to download " + str(len(hashlist)) + " files (" + str(round(size / 10000000000, 5)) + " GB)")
 
     start = time.time()
     func = partial(download_file, mod_path, mod_info)
