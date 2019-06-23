@@ -34,7 +34,12 @@ def main():
         'X-Requested-With': 'XMLHttpRequest'
     }
 
-    mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content.decode('utf-8'))["data"][mod_id]
+    mod_info = json.loads(requests.get(api + "/v1/mods", headers=headers).content.decode('utf-8'))["data"]
+
+    for mod in mod_info:
+        if(mod["Id"] == mod_id):
+            mod_info = mod
+
 
     print("dwnloading/hashing mod: '" + str(mod_info["Name"]) + "' to path: '" + mod_path + "'")
 
