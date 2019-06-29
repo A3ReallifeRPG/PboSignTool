@@ -33,3 +33,11 @@ venv/
 # just for safety so nobody accidentally checks something in
 *.biprivatekey
 *.bikey
+
+download
+build
+dist
+
+__pycache__/
+
+download\.spec

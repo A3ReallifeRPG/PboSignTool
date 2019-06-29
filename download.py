@@ -125,4 +125,5 @@ def get_hash_list(api, mod_info):
 
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()
