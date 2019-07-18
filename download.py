@@ -58,6 +58,7 @@ def main():
 
 
 def hash_mod(mod_path, mod_info, hashlist):
+    delete_unused_files(mod_path, mod_info, hashlist)
     print("Starting to hash/check " + str(len(hashlist)) + " files")
     start = time.time()
 
@@ -112,6 +113,18 @@ def download_file(mod_path, mod_info, file):
 
     urllib.request.urlretrieve(url, path)
     print(url)
+
+def delete_unused_files(mod_path, mod_info, hashlist):
+    for root, directories, filenames in os.walk((str(os.path.join(mod_path, mod_info["Directories"])))):
+        for filename in filenames:
+            delete = True
+            for file in hashlist:
+                if file["FileName"] == filename:
+                    delete = False
+            if delete:
+                path = str(os.path.join(root, filename))
+                os.remove(path)
+                print("Deleted: " + str(path))
 
 
 def get_hash_list(api, mod_info):
